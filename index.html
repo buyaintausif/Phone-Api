@@ -10,26 +10,42 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-<body >
+<body class="mx-auto w-[450px] md:w-[900px]" >
 
-    <header class="mx-auto">
+    <header class="mx-auto w-[450px] md:w-[900px]">
 
         <h1 class="text-4xl">Hunting Phone </h1>
 
 
     </header>
 
-    <main class="mx-auto w-full">
+    <main class="mx-auto">
+
+        <section class="bg-gray-100 p-4 ">
+            <input id="search-field" type="text" placeholder="Search here" class="input input-bordered input-success  max-w-xs" />
+            <button onclick="searchHandle()" class="btn btn-accent">Search</button>
+
+<!-- another search field -->
+
+
+        <!-- <section class="bg-gray-100  ">
+            <input id="search-field2" type="text" placeholder="Search here" class="input input-bordered input-success  max-w-xs" />
+            <button onclick="searchHandle2()" class="btn btn-accent">Search</button>
+        </section> -->
+
 
         <section>
-            <input type="text" placeholder="Search here" class="input input-bordered input-success w-full max-w-xs" />
-        </section>
 
-
-        <section>
-            <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div id="loading-spinner" class="text-center my-40 hidden">
+                <span class="loading loading-spinner loading-lg"></span>
+            </div>
+            <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto">
                 
 
+            </div>
+
+            <div id="show-all-container" class="hidden text-center">
+                <button onclick="handleShowAll()" class="btn btn-accent">Show All</button>
             </div>
         </section>
 

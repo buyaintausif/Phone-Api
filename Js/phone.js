@@ -1,15 +1,48 @@
-const loadphone = async () => {
+const loadphone = async (searchText, isShowAll) => {
   const response = await fetch(
-    "https://openapi.programming-hero.com/api/phones?search=iphone"
+    `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
 
   const data = await response.json();
   const phones = data.data;
-  getPhone(phones);
+  getPhone(phones, isShowAll);
 };
 
-const getPhone = (phones) => {
+
+// set display elements
+
+const getPhone = (phones,isShowAll) => {
     const phoneContainer=document.getElementById('phone-container') ;
+    phoneContainer.innerText='';
+    
+
+    //limit the button show 
+
+    const showAllContainer = document.getElementById('show-all-container');
+
+    if(phones.length > 12 && !isShowAll){
+
+      showAllContainer.classList.remove('hidden');
+
+    }else{
+      showAllContainer.classList.add('hidden');
+    }
+
+    console.log('is show all ',isShowAll)
+
+
+   
+
+    // display limited item from api array
+
+    if(!isShowAll){
+      phones =phones.slice(0,12);
+    }
+
+
+
+
+
   for (const phone of phones) {
     console.log(phone);
     const phoneCard = document.createElement("div");
@@ -32,6 +65,55 @@ const getPhone = (phones) => {
 
         phoneContainer.appendChild(phoneCard);
   }
+
+  //stop loading
+
+  toggleLoadingSpiner(false);
 };
 
-loadphone();
+
+// handel search button
+
+const searchHandle= (isShowAll) => {
+
+  toggleLoadingSpiner(true);
+  const searchField = document.getElementById('search-field');
+  const inputValue= searchField.value;
+  console.log(inputValue);
+
+  loadphone(inputValue,isShowAll);
+  
+}
+
+// const searchHandle2=()=>{
+//   toggleLoadingSpiner(true);
+//   const searchField = document.getElementById('search-field2');
+//   const inputValue= searchField.value;
+//   loadphone(inputValue);
+  
+// }
+
+
+
+
+const toggleLoadingSpiner= (isLoading) =>{
+  const loadingSpiner = document.getElementById('loading-spinner');
+  if(isLoading){
+    loadingSpiner.classList.remove('hidden');
+
+  }else{
+    loadingSpiner.classList.add('hidden');
+
+  }
+  
+}
+
+
+//Hande Showall
+
+const handleShowAll= () =>{
+  searchHandle(true);
+
+}
+
+// loadphone();
